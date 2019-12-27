@@ -1,12 +1,15 @@
 title: Syamantak Payra # your name (or website title) here
 logo: "/images/logo.png?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  Researcher, Maker, Inventor 
+  Researcher, Maker, Inventor. 
   <br><br>
   MIT Class of 2022
+  <br>
   Electrical Engineering and Computer Science
   <br><br>
-  <a href="https://www.linkedin.com/in/syamantak-payra/">LinkedIn</a> 
+  
+  <a href="https://www.linkedin.com/in/syamantak-payra/">LinkedIn</a>
+  <a href="https://github.com/spayra1/">GitHub</a>
   
 theme: jekyll-theme-minimal
 google_analytics: UA-104667365-1 # your Google Analytics tracking ID here
