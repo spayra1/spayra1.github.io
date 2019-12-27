@@ -5,7 +5,7 @@ This page is still under construction. Thanks for visiting!
 
 ## Projects
 - FPGA-based Neural Circuitry for Zero-Latency Neural Networks
--	Digital Fibers for Fabric Computing: Robotic Integration of Microchip-embedded Polymer Fibers (manuscript submitted for review)
+-	Digital Fibers for Fabric Computing: Robotic Integration of Microchip-Embedded Polymer Fibers
 -	Geospatial Artificial Intelligence: Mining Satellite Imagery for Defense-Critical Activity Indicators
 -	Isolation and Identification of Antibiotic-Producing Bacteria in Soil
 -	Replenish: a Fitbit-based dehydration detection system
