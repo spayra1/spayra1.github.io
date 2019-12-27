@@ -1,17 +1,8 @@
-## Site still under construction.
+# Portfolio site still under construction.
 Thanks for visiting!
 
-<br><br>
 
-___
-
-
-## Portfolio
-
----
-
-### Projects
-
+## Projects
 - FPGA-based Neural Circuitry for Zero-Latency Neural Networks
 -	Digital Fibers for Fabric Computing: Robotic Integration of Microchip-embedded Polymer Fibers (manuscript submitted for review)
 -	Geospatial Artificial Intelligence: Mining Satellite Imagery for Defense-Critical Activity Indicators
