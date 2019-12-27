@@ -1,5 +1,6 @@
-# Portfolio site still under construction.
-Thanks for visiting!
+# Portfolio
+
+This page is still under construction. Thanks for visiting!
 
 
 ## Projects
@@ -17,3 +18,5 @@ Thanks for visiting!
 -	Brace Yourself: A Novel Electronically Aided Leg Orthosis
 -	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate
 -	The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells
+
+## Links
