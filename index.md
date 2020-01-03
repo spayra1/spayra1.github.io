@@ -48,3 +48,12 @@ This page is still under construction. Thanks for visiting!
 -	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate
 
 -	The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells
+
+## By Category
+<details>
+  <summary>Click to expand!</summary>
+  
+  ### Research Projects
+  ### Hackathon Projects
+  ### Internship Projects
+</details>
