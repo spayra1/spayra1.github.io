@@ -3,9 +3,13 @@ logo: "/images/logo.png?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Researcher. Maker. Inventor. 
   <br><br>
-  MIT Class of 2022
+  MIT Class of 2022,
   <br>
-  Electrical Engineering and Computer Science
+  <small>Electrical Engineering and Computer Science.<small>
+  <br>
+  <small>Public Policy Minor. Entrepreneurship Minor.<small>
+  <br>
+  Passionate about developing technologies with human impact.
   <br><br>
   
   <a href="https://www.linkedin.com/in/syamantak-payra/">View my LinkedIn Profile</a>
