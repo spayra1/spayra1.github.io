@@ -1,6 +1,6 @@
 # Portfolio
 
-This page is still under construction. Thanks for visiting!
+_This page is still under construction. Thanks for visiting!_
 
 
 ## Projects
@@ -50,11 +50,4 @@ This page is still under construction. Thanks for visiting!
 
 -	The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells
 
-## By Category
-<details>
-  <summary>Click to expand!</summary>
-  
-  ### Research Projects
-  ### Hackathon Projects
-  ### Internship Projects
-</details>
+_There are also a few projects that have not been included on this page._
