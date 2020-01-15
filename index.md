@@ -48,6 +48,8 @@ _This page is still under construction. Thanks for visiting!_
 
 -	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate
 
--	The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells
+- [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](https://www.emerginginvestigators.org/articles/spelling-bee-a-study-on-the-motivation-and-learning-strategies-among-elementary-and-junior-high-student-competitors)
+
+-	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells)
 
 _There are also a few projects that have not been included on this page._
