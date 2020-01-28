@@ -8,11 +8,16 @@
   Designed FPGA-based neuronal circuitry for distributed, network-based implementations of artificial intelligence. Novel architecture creates and utilizes binary representations of neural networks to rapidly accelerate computation. Currently extending platform to develop zero-latency spatially-distributed neural networks to form robust edge-computing infrastructures.</details>
 <!-- -->
 
+- <details>
+  <summary>Integrated Sensors within Intelligent Fabrics: Utilizing Polymer Fibers as Microphones and Speakers</summary>
+  Designing and developing embedded controls for compliant polymer-encapsulated piezoelectric filament, enabling digital fibers to function as microphones and speakers. Utilizing C/C++ and JavaScript. Proof-of-concept for human-computer interaction using digital fibers currently being developed in the form of an interactive dress for operatic performances that plays musical compositions stored within smart fibers embedded in the fabric. </details>
+<!-- -->
+
 - Periscopic Camera for Synchronous Multi-shot Videography
 
 - <details>
   <summary>Digital Fibers for Fabric Computing: EEPROM Interfacing with Cortex-M0 Microcontroller</summary>
-  Programming embedded systems communications for MAX32660 microcontroller, enabling in-fiber I2C communication and data storage. Utilizing C/C++ and JavaScript. Proof-of-concept for human-computer interaction using digital fibers currently being developed in the form of an interactive dress for operatic performances that plays musical compositions stored within smart fibers embedded in the fabric. </details>
+  Programming embedded systems communications for MAX32660 microcontroller, enabling in-fiber I2C communication and data storage. Utilizing C/C++ and JavaScript. Proof-of-concept for human-computer interaction was developed in the form of an autonomous fabric assistant that monitors physiological conditions from sensors embedded within fabrics. Manuscript under review. </details>
 <!-- -->
 
 -	[LectureSense: a real-time student-to-professor feedback system](https://devpost.com/software/lecturesense-uimo5f)
