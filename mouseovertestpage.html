@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Test</title>
+    <script>
+      function hey(id)
+        {document.getElementById(id).style.color = "red";
+        window.parent.frames["frame2"].document.getElementById(id).style.backgroundColor = "yellow";
+        window.parent.frames["frame2"].document.getElementById(id).style.color = "red";} 
+      function bye(id)
+        {document.getElementById(id).style.color = "black";
+        window.parent.frames["frame2"].document.getElementById(id).style.color = "black";}
+    </script>
+  </head>
+
+  <body>
+    <a id="1" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">hello</a> 
+    <a id="2" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">world</a>....
+  </body>
+</html>
