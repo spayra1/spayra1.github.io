@@ -1,7 +1,6 @@
 # Portfolio
 
-
-## Projects
+## <span title="(organized in reverse chronological order)">Projects</span>
 
 - <details>
   <summary>FPGA-based Neural Circuitry for Zero-Latency Neural Networks</summary>
@@ -56,3 +55,7 @@
 -	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells)
 
 _I also have a few projects I haven't included on this page. Check back for more later!_
+
+<a href="sample_page" class="link">test link to sample page</a>
+
+[test link 2 to sample page](/sample_page)
