@@ -1,24 +1,45 @@
 <html>
   <head>
-    <title>Test</title>
+    <p>
+      Click a category to highlight:
+      <t id="physics" onclick="highlightPertinent(this.id)">Physics,  </t>
+      <t id="chemistry" onclick="highlightPertinent(this.id)">Chemistry,  </t>
+      <t id="biology" onclick="highlightPertinent(this.id)">Biology</t>
+    </p>
+    
+
     <script>
-      function hey(id)
-        {document.getElementById(id).style.color = "red";
-        window.parent.frames["frame2"].document.getElementById(id).style.backgroundColor = "yellow";
-        window.parent.frames["frame2"].document.getElementById(id).style.color = "red";}
-      function bye(id)
-        {document.getElementById(id).style.color = "black";
-        window.parent.frames["frame2"].document.getElementById(id).style.color = "black";}
+      function highlightPertinent(category) {
+        highlightText(category)
+        var categories = {}
+        categories["physics"]=["physics1", "physics2"]
+        categories["chemistry"]=["chem1"]
+        categories["biology"]=["biology1"]
+        for (i=0;i<categories[category].length;i++) {highlightText(categories[category][i])}
+      }
+      function highlightText(id) {
+        if(document.getElementById(id).style.color=="red") {document.getElementById(id).style.color ="black";} 
+        else {document.getElementById(id).style.color ="red";}
+      }
     </script>
   </head>
 
-  <body>
-    <a id="1" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">tag1</a> 
-    <a id="2" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">tag2</a>
-    <br>
-    <a id="1" class="word">this should be red when tag1 is hovered</a>
-    <br>
-    <a id="2" class="word">this should be red when tag2 is hovered</a>
-    
+  <body id="body">
+
+    <li id="physics1">Physics 1</li>
+    <li id="chem1">Chemistry 1</li>
+    <li id="physics2">Physics 2</li>
+    <li id="biology1">Biology 1</li>
+
+    <br /><br />
+    <button onclick="myFunction()">Run test script</button>
+    <p id="demo"></p>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("body").getElementsByTagName("li");
+        document.getElementById("demo").innerHTML = x.length;
+      }
+    </script>
+
   </body>
 </html>
