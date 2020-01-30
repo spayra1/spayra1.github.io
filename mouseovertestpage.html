@@ -5,7 +5,7 @@
       function hey(id)
         {document.getElementById(id).style.color = "red";
         window.parent.frames["frame2"].document.getElementById(id).style.backgroundColor = "yellow";
-        window.parent.frames["frame2"].document.getElementById(id).style.color = "red";} 
+        window.parent.frames["frame2"].document.getElementById(id).style.color = "red";}
       function bye(id)
         {document.getElementById(id).style.color = "black";
         window.parent.frames["frame2"].document.getElementById(id).style.color = "black";}
@@ -13,7 +13,12 @@
   </head>
 
   <body>
-    <a id="1" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">hello</a> 
-    <a id="2" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">world</a>....
+    <a id="1" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">tag1</a> 
+    <a id="2" class="word" onmouseover="hey(this.id)" onmouseout="bye(this.id)">tag2</a>
+    <br>
+    <a id="1" class="word">this should be red when tag1 is hovered</a>
+    <br>
+    <a id="2" class="word">this should be red when tag2 is hovered</a>
+    
   </body>
 </html>
