@@ -1,5 +1,7 @@
 # Portfolio
 
+_Thanks for visiting! On this page, I have links/summaries for some of the projects I've worked on, in reverse chronological order. You can also find links to my LinkedIn profile and GitHub repositories on the left._
+
 ## <span title="(organized in reverse chronological order)">Projects</span>
 
 - <details>
@@ -40,13 +42,13 @@
 
 -	[Machine Learning Models for Predictive Prognoses in Pediatric Neuro-Oncology and Construction of GDPR-Compliant Blockchain Databases for Secure Storage of Medical Data](https://youtu.be/AOAD2V2tQjc?t=8690)
 
--	Design & Development of an Intelligent Sensor-Enhanced Digital Stethoscope (SEDS) for Patient-Friendly Remote Auscultation
+-	[Design & Development of an Intelligent Sensor-Enhanced Digital Stethoscope (SEDS) for Patient-Friendly Remote Auscultation](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=15366)
 
 -	[3D Printing in Microgravity: Defying the Limitations and Resource Constraints of Space Travel using 3D-Printed Injection Molds](http://3dmolds.webflow.io/)
 
--	A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios
+-	[A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)
 
--	Brace Yourself: A Novel Electronically Aided Leg Orthosis
+-	[Brace Yourself: A Novel Electronically Aided Leg Orthosis](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=10819)
 
 -	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate
 
