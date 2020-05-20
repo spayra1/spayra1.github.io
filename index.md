@@ -46,12 +46,7 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 -	[3D Printing in Microgravity: Defying the Limitations and Resource Constraints of Space Travel using 3D-Printed Injection Molds](http://3dmolds.webflow.io/)
 
-- <details>
-  <summary>[A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)</summary>
-  For more information, here are some articles that have been written about this:
-  - 
-</details>
-<!-- -->
+- [A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)
 
 -	[A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)
 
