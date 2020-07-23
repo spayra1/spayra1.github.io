@@ -4,6 +4,14 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 ## <span title="(organized in reverse chronological order)">Projects</span>
 
+- SpaceTouch Intelligent Pressurized Spacesuit Architecture for Real-time Astronaut Haptic Feedback and Monitoring
+
+- Closed-Loop Digital Luminescence Fibers enable Adaptive Biomimetic Camouflage in Clothing
+
+- Human Body Gait Analysis using Fiber-Embedded Kinematics Detection
+
+- Distributed Computing Architecture for Robust, Low-Power Delegated Decision-Making
+
 - <details>
   <summary>FPGA-based Neural Circuitry for Zero-Latency Neural Networks</summary>
   Designed FPGA-based neuronal circuitry for distributed, network-based implementations of artificial intelligence. Novel architecture creates and utilizes binary representations of neural networks to rapidly accelerate computation. Currently extending platform to develop zero-latency spatially-distributed neural networks to form robust edge-computing infrastructures.</details>
