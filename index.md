@@ -10,6 +10,8 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 - Human Body Gait Analysis using Fiber-Embedded Kinematics Detection
 
+- Optimization of Organizational / Governmental Operations using Federated Delegation
+
 - Distributed Computing Architecture for Robust, Low-Power Delegated Decision-Making
 
 - <details>
