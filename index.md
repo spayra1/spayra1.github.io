@@ -4,7 +4,11 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 ## <span title="(organized in reverse chronological order)">Projects</span>
 
-- SpaceTouch Intelligent Pressurized Spacesuit Architecture for Real-time Astronaut Haptic Feedback and Monitoring
+- SpaceTouch Intelligent Pressurized Spacesuit Architecture for Real-time Astronaut Haptic Feedback and Monitoring (accepted to the [2021 IEEE Aerospace Conference](https://www.aeroconf.org/))
+
+- Enabling Adaptive Robot-Environment Interaction and Context-Aware Artificial Somatosensory Reflexes through Sensor-Embedded Fibers (won [2nd Place Best Paper Award](https://urtc.mit.edu/Best-Paper-Awards.pdf) at the 2020 IEEE Undergraduate Research Technology Conference) ([link to paper](https://www.rle.mit.edu/wp-content/uploads/2020/10/PA20-0081_URTC_Updated.pdf)) ([RLE Student Spotlight](https://www.rle.mit.edu/fibersmit-group-syamantak-payra/))
+
+- Digital Electronics in Fibers enable Fabric-based Machine-Learning Inference for Human Activity Recognition (manuscript submitted for review)
 
 - Closed-Loop Digital Luminescence Fibers enable Adaptive Biomimetic Camouflage in Clothing
 
@@ -58,14 +62,12 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 - [A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)
 
--	[A Smart Bionic Leg Brace: An Electronically Actuated Active-Assist Wearable Orthotic Device for Comprehensive Restoration of Gait Characteristics across Everyday Mobility Scenarios](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=5489)
-
 -	[Brace Yourself: A Novel Electronically Aided Leg Orthosis](https://abstracts.societyforscience.org/Home/FullAbstract?ProjectId=10819)
 
--	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate
+-	Analyzing the Oleophobicity and Biocompatibility of Titania Nanotubes on Titanium Substrate (proceedings of the 34th Research Science Institute)
 
-- [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](https://www.emerginginvestigators.org/articles/spelling-bee-a-study-on-the-motivation-and-learning-strategies-among-elementary-and-junior-high-student-competitors)
+- [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](https://www.emerginginvestigators.org/articles/spelling-bee-a-study-on-the-motivation-and-learning-strategies-among-elementary-and-junior-high-student-competitors) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
 
--	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells)
+-	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
 
 _I also have a few projects I haven't included on this page. Check back for more later!_
