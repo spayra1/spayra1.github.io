@@ -4,11 +4,15 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 ## <span title="(organized in reverse chronological order)">Projects</span>
 
-- SpaceTouch Intelligent Pressurized Spacesuit Architecture for Real-time Astronaut Haptic Feedback and Monitoring (accepted to the [2021 IEEE Aerospace Conference](https://www.aeroconf.org/))
+- Digital Electronics in Fibres enable Fabric-based Machine-Learning Inference (published in [Nature Communications](https://www.nature.com/articles/s41467-021-23628-5))
+
+- Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization (accepted to the IEEE Transactions on Medical Robotics and Bionics)
+
+- Feeling Through Spacesuits: Application of Space-Resilient E-Textiles to Enable Haptic Feedback on Pressurized Extravehicular Suits (published in the [2021 IEEE Aerospace Conference](https://www.aeroconf.org/))
+
+- SpaceTouch Intelligent Pressurized Spacesuit Architecture for Real-time Astronaut Haptic Feedback and Monitoring
 
 - Enabling Adaptive Robot-Environment Interaction and Context-Aware Artificial Somatosensory Reflexes through Sensor-Embedded Fibers (won [2nd Place Best Paper Award](https://urtc.mit.edu/Best-Paper-Awards.pdf) at the 2020 IEEE Undergraduate Research Technology Conference) ([link to paper](https://www.rle.mit.edu/wp-content/uploads/2020/10/PA20-0081_URTC_Updated.pdf)) ([RLE Student Spotlight](https://www.rle.mit.edu/fibersmit-group-syamantak-payra/))
-
-- Digital Electronics in Fibers enable Fabric-based Machine-Learning Inference for Human Activity Recognition (manuscript submitted for review)
 
 - Closed-Loop Digital Luminescence Fibers enable Adaptive Biomimetic Camouflage in Clothing
 
@@ -77,6 +81,12 @@ _I also have a few projects I haven't included on this page. Check back for more
 
 _I've uploaded some PDFs that are harder to find online by searching. For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page._
 
+### Final (Open Access) Papers
+
 - [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](assets/uploads/papers/payra_2016.pdf)
 
 - [The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](assets/uploads/papers/payra_2015.pdf)
+
+### Accepted (Green Open Access) Papers
+
+- [Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization](assets/uploads/papers/PayraMahadevan_IEEE_TMRB.pdf)
