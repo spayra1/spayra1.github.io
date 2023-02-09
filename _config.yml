@@ -19,6 +19,8 @@ description: > # your text below (remove <br> elements if you don't need line br
   <br>
   <br>
   <a href="https://www.linkedin.com/in/syamantak-payra/">View my LinkedIn Profile</a>
+  <br>
+  <br>
   <a href="https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao">View my Google Scholar</a>
   
 theme: jekyll-theme-minimal
