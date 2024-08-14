@@ -68,14 +68,15 @@ _GitHub Pages has been having some issues displaying content and I haven't had t
 
 ## <span title="(organized in reverse chronological order)">Publications</span>
 
-_I've uploaded some PDFs that are harder to find online by searching. For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page._
+For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page.
+_Here, I've specifically uploaded some PDFs that are harder to find online by searching. _
 
-### Final (Open Access) Papers
+### Open Access Papers (Final Version)
 
 - [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](assets/uploads/papers/payra_2016.pdf)
 
 - [The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](assets/uploads/papers/payra_2015.pdf)
 
-### Accepted (Green Open Access) Papers
+### Green Open Access Papers (Non-Typeset Version, as per license agreement)
 
 - [Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization](assets/uploads/papers/PayraMahadevan_IEEE_TMRB.pdf)
