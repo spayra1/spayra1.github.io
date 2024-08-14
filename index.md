@@ -22,22 +22,13 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 - Distributed Computing Architecture for Robust, Low-Power Delegated Decision-Making
 
-- <details>
-  <summary>FPGA-based Neural Circuitry for Zero-Latency Neural Networks</summary>
-  Designed FPGA-based neuronal circuitry for distributed, network-based implementations of artificial intelligence. Novel architecture creates and utilizes binary representations of neural networks to rapidly accelerate computation. Currently extending platform to develop zero-latency spatially-distributed neural networks to form robust edge-computing infrastructures.</details>
-<!-- -->
+- FPGA-based Neural Circuitry for Zero-Latency Neural Networks
 
-- <details>
-  <summary>Integrated Sensors within Intelligent Fabrics: Utilizing Polymer Fibers as Microphones and Speakers</summary>
-  Designing and developing embedded controls for compliant polymer-encapsulated piezoelectric filament, enabling digital fibers to function as microphones and speakers. Utilizing C/C++ and JavaScript. Proof-of-concept for human-computer interaction using digital fibers currently being developed in the form of an interactive dress for operatic performances that plays musical compositions stored within smart fibers embedded in the fabric. </details>
-<!-- -->
+- Integrated Sensors within Intelligent Fabrics: Utilizing Polymer Fibers as Microphones and Speakers
 
 - Periscopic Camera for Synchronous Multi-shot Videography
 
-- <details>
-  <summary>Digital Fibers for Fabric Computing: EEPROM Interfacing with Cortex-M0 Microcontroller</summary>
-  Programming embedded systems communications for MAX32660 microcontroller, enabling in-fiber I2C communication and data storage. Utilizing C/C++ and JavaScript. Proof-of-concept for human-computer interaction was developed in the form of an autonomous fabric assistant that monitors physiological conditions from sensors embedded within fabrics. Manuscript under review. </details>
-<!-- -->
+- Digital Fibers for Fabric Computing: EEPROM Interfacing with Cortex-M0 Microcontroller
 
 -	[LectureSense: a real-time student-to-professor feedback system](https://devpost.com/software/lecturesense-uimo5f)
 
@@ -45,10 +36,7 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 - Temple: A unified platform to manage medical records, communicate with providers, and track health initiatives
 
-- <details>
-  <summary>Robotic Integration of Microchip-Embedded Polymer Fibers for Reflexory Sensory Response</summary>
-  Created scalable reflexory "neural" fiber architecture that allows sensory input to be pre-processed, accelerating reaction time and enhancing sensory capabilities of digital interfaces. Developed robotic platform to test microcontroller-fiber integration schemes, and successfully demonstrated proof-of-concept of a thermal glove that improved robot reaction time for high-temperature avoidance reflex. </details>
-<!-- -->
+- Robotic Integration of Microchip-Embedded Polymer Fibers for Reflexory Sensory Response
 
 -	Geospatial Artificial Intelligence: Mining Satellite Imagery for Defense-Critical Activity Indicators
 
@@ -74,7 +62,8 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 
 -	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
 
-_I also have a few projects I haven't included on this page. Check back for more later!_
+_I also have many projects I've worked on that haven't included on this page. Check back for more later!_
+_GitHub Pages has been having some issues displaying content and I haven't had time to troubleshoot it, so this page is slightly sparser than it was before_
 
 
 ## <span title="(organized in reverse chronological order)">Publications</span>
