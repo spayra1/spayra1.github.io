@@ -2,6 +2,26 @@
 
 _Thanks for visiting! On this page, I have links/summaries for some of the projects I've worked on, in reverse chronological order. You can also find links to my LinkedIn profile and GitHub repositories on the left._
 
+_I also have many projects I've worked on that haven't included on this page. Check back for more later!_
+_GitHub Pages has been having some issues displaying content and I haven't had time to troubleshoot it, so this page is slightly sparser than it was before_
+
+## <span title="(organized in reverse chronological order)">Publications</span>
+
+For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page.
+_Here, I've specifically uploaded some PDFs that are harder to find online by searching. _
+
+### Green Open Access Papers
+
+- [Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization](assets/uploads/papers/PayraMahadevan_IEEE_TMRB.pdf)
+(this is the non-typeset version, as per IEEE TMRB (Transactions on Medical Robotics and Bionics) policy)
+
+### Open Access Papers (Final Version)
+
+- [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](assets/uploads/papers/payra_2016.pdf)
+
+- [The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](assets/uploads/papers/payra_2015.pdf)
+
+
 ## <span title="(organized in reverse chronological order)">Projects</span>
 
 - Digital Electronics in Fibres enable Fabric-based Machine-Learning Inference (published in [Nature Communications](https://www.nature.com/articles/s41467-021-23628-5))
@@ -61,22 +81,3 @@ _Thanks for visiting! On this page, I have links/summaries for some of the proje
 - [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](https://www.emerginginvestigators.org/articles/spelling-bee-a-study-on-the-motivation-and-learning-strategies-among-elementary-and-junior-high-student-competitors) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
 
 -	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
-
-_I also have many projects I've worked on that haven't included on this page. Check back for more later!_
-_GitHub Pages has been having some issues displaying content and I haven't had time to troubleshoot it, so this page is slightly sparser than it was before_
-
-
-## <span title="(organized in reverse chronological order)">Publications</span>
-
-For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page.
-_Here, I've specifically uploaded some PDFs that are harder to find online by searching. _
-
-### Open Access Papers (Final Version)
-
-- [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](assets/uploads/papers/payra_2016.pdf)
-
-- [The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](assets/uploads/papers/payra_2015.pdf)
-
-### Green Open Access Papers (Non-Typeset Version, as per license agreement)
-
-- [Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization](assets/uploads/papers/PayraMahadevan_IEEE_TMRB.pdf)
