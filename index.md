@@ -15,6 +15,8 @@ _Here, I've specifically uploaded some PDFs that are harder to find online by se
 - [Design, Development, and Evaluation of a Bionic Knee-Ankle-Foot Orthosis Retrofit for Walking Gait Normalization](assets/uploads/papers/PayraMahadevan_IEEE_TMRB.pdf)
 (this is the non-typeset version, as per IEEE TMRB (Transactions on Medical Robotics and Bionics) policy)
 
+- Artemis Removable-Canister Waste Accumulation System & Handler (ARC-WASH): A Portable Modular Space Lavatory
+
 ### Open Access Papers (Final Version)
 
 - [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](assets/uploads/papers/payra_2016.pdf)
