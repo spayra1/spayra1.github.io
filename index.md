@@ -8,7 +8,7 @@ _GitHub Pages has been having some issues displaying content and I haven't had t
 ## <span title="(organized in reverse chronological order)">Publications</span>
 
 For more publications, visit my [Google Scholar](https://scholar.google.com/citations?user=srRusqEAAAAJ&hl=en&oi=ao) page.
-_Here, I've specifically uploaded some PDFs that are harder to find online by searching. _
+Here, I've specifically uploaded some PDFs that are harder to find online by searching.
 
 ### Green Open Access Papers
 
