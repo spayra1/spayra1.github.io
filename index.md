@@ -83,3 +83,8 @@ Here, I've specifically uploaded some PDFs that are harder to find online by sea
 - [Spelling Bee: A Study on the Motivation and Learning Strategies Among Elementary and Junior-High Student Competitors](https://www.emerginginvestigators.org/articles/spelling-bee-a-study-on-the-motivation-and-learning-strategies-among-elementary-and-junior-high-student-competitors) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
 
 -	[The Effect of Liquid Mediums on the Transport of Photonic Energy and its Impact on the Quantum Efficiency of Photovoltaic Cells](https://www.emerginginvestigators.org/articles/the-effect-of-various-liquid-mediums-on-the-transport-of-photonic-energy-and-its-impact-on-the-quantum-efficiency-of-photovoltaic-cells) (published in the Journal of Emerging Investigators, a publication of the Harvard Graduate School of Arts and Sciences)
+
+
+## <span title="(organized in reverse chronological order)">Miscellaneous</span>
+
+- [G310GS Gearing Calculator](assets/uploads/html/g310gs-gearing.html)

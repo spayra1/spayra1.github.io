@@ -1,0 +1,570 @@
+<title>G 310 GS Sprocket Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: instrument-cluster tool. Left rail of inputs, right column of readouts and charts; stacks on phones. */
+:root{
+  --bg:#eceff1; --panel:#ffffff; --ink:#172027; --muted:#5a6772; --line:#d3dade; --soft:#f5f7f8;
+  --accent:#b86200; --loud:rgba(214,130,0,.13); --red:#c23b2e; --good:#1d7f5c; --bad:#b23a2f;
+  --s0:#38434d; --s1:#2a67cf; --s2:#0d8f74; --s3:#a83e92;
+  --g0:#c9384a; --g1:#d98a12; --g2:#5f9a3c; --g3:#0f8b9a; --g4:#3d63c9; --g5:#7d45b8;
+  --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101417; --panel:#181e23; --ink:#e4e9ed; --muted:#93a1ac; --line:#2b343b; --soft:#1e252b;
+  --accent:#f0a33a; --loud:rgba(240,163,58,.12); --red:#ff6a5a; --good:#4fd1a0; --bad:#ff7b6e;
+  --s0:#c2ccd4; --s1:#6fa3ff; --s2:#3fd1ac; --s3:#e47fd0;
+  --g0:#ff6b7c; --g1:#ffb547; --g2:#8fd16a; --g3:#3fd0e0; --g4:#7f9fff; --g5:#c08cff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101417; --panel:#181e23; --ink:#e4e9ed; --muted:#93a1ac; --line:#2b343b; --soft:#1e252b;
+  --accent:#f0a33a; --loud:rgba(240,163,58,.12); --red:#ff6a5a; --good:#4fd1a0; --bad:#ff7b6e;
+  --s0:#c2ccd4; --s1:#6fa3ff; --s2:#3fd1ac; --s3:#e47fd0;
+  --g0:#ff6b7c; --g1:#ffb547; --g2:#8fd16a; --g3:#3fd0e0; --g4:#7f9fff; --g5:#c08cff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.45}
+.wrap{max-width:1360px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px;margin-bottom:18px}
+h1{font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:.01em;margin:0;line-height:1;text-wrap:balance}
+h1 small{font-size:.5em;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-left:8px}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+h2{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:.03em;text-transform:uppercase;margin:0 0 4px}
+h3{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 8px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 12px;max-width:80ch}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
+.rail{display:flex;flex-direction:column;gap:14px}
+.main{display:flex;flex-direction:column;gap:18px;min-width:0}
+label{font-size:12.5px;color:var(--muted)}
+input[type=number],select{font-family:var(--mono);font-size:13px;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 6px;width:100%}
+input[type=text]{font-family:var(--body);font-size:13px;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 6px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.setups{display:grid;grid-template-columns:22px 14px minmax(0,1fr) 54px 54px;gap:6px 6px;align-items:center}
+.setups .hd{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.swatch{width:12px;height:12px;border-radius:2px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+.fields .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:3px;min-width:0}
+details summary{cursor:pointer;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;list-style:none;display:flex;justify-content:space-between}
+details summary::after{content:"+";font-family:var(--mono)}
+details[open] summary::after{content:"–"}
+details[open] summary{margin-bottom:10px}
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 8px}
+.tq{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;font-family:var(--mono);font-size:12px}
+.tq input{padding:3px 5px}
+button{font-family:var(--body);font-size:13px;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.note{font-size:12px;color:var(--muted);margin:8px 0 0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+@media (max-width:760px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cell{background:var(--panel);padding:12px 14px;min-width:0}
+.cell .k{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.cell .v{font-family:var(--display);font-size:28px;font-weight:700;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
+.cell .v .arrow{color:var(--muted);font-weight:600;font-size:.7em;margin:0 4px}
+.cell .d{font-family:var(--mono);font-size:12px;margin-top:2px}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end;margin-bottom:10px}
+.controls .field{width:auto;min-width:120px}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto}
+.chart svg text{font-family:var(--mono);font-size:11px}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 8px;font-family:var(--mono);font-size:11.5px;line-height:1.35;box-shadow:0 4px 14px rgba(0,0,0,.12);white-space:nowrap;z-index:3}
+.tip b{font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+th:first-child,td:first-child{text-align:left}
+td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td:first-child{font-family:var(--body);font-weight:500}
+tr.base td{background:var(--soft)}
+.tag{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:1100px){.two{grid-template-columns:minmax(0,1fr)}}
+.notes{columns:2 320px;column-gap:28px;font-size:13px;color:var(--ink)}
+.notes p{margin:0 0 10px;break-inside:avoid}
+.notes b{font-weight:600}
+.insight{border-left:3px solid var(--accent);padding:4px 0 4px 12px;margin:0 0 12px;font-size:13.5px;max-width:90ch}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <h1>G 310 GS Sprocket Lab <small>2021 · 313 cc single</small></h1>
+    <p class="lede">Compare front/rear sprocket combinations: engine speed at highway pace, rear-wheel torque in every gear, passing acceleration, and hill starts in first.</p>
+  </div>
+</header>
+
+<div class="grid">
+<aside class="rail">
+  <section class="panel">
+    <h3>Sprocket setups</h3>
+    <div class="setups" id="setups">
+      <span class="hd" title="Include">On</span><span></span><span class="hd">Name</span><span class="hd">Front</span><span class="hd">Rear</span>
+    </div>
+    <p class="note">Setup A is the baseline every percentage compares against. Stock is 16/40.</p>
+  </section>
+
+  <section class="panel">
+    <h3>Riding conditions</h3>
+    <div class="fields">
+      <div class="field"><label for="cruise">Cruise speed (dash mph)</label><input type="number" id="cruise" value="80" step="1"></div>
+      <div class="field"><label for="loud">Loud above (rpm)</label><input type="number" id="loud" value="7500" step="100"></div>
+      <div class="field"><label for="pass0">Pass from (dash mph)</label><input type="number" id="pass0" value="55" step="1"></div>
+      <div class="field"><label for="pass1">Pass to (dash mph)</label><input type="number" id="pass1" value="80" step="1"></div>
+      <div class="field"><label for="passGrade">Highway grade (%)</label><input type="number" id="passGrade" value="0" step="0.5"></div>
+      <div class="field"><label for="rider">Rider + gear + luggage (kg)</label><input type="number" id="rider" value="85" step="1"></div>
+      <div class="field"><label for="hillGrade">Hill-start grade (%)</label><input type="number" id="hillGrade" value="12" step="1"></div>
+      <div class="field"><label for="launch">Clutch launch rpm</label><input type="number" id="launch" value="4000" step="100"></div>
+      <div class="field full"><label for="speedo">Speedometer reads high by (%)</label><input type="number" id="speedo" value="6" step="0.5"></div>
+    </div>
+    <p class="note">Speeds you type and the chart axes are dash (indicated) mph. Physics runs on true speed.</p>
+  </section>
+
+  <section class="panel">
+    <details id="calDetails">
+      <summary>Check against your tach</summary>
+      <p class="note" style="margin-top:0">Read rpm in a known gear at a steady GPS or dash speed. This tells you how far off the speedometer is, and whether the gear ratios below are right.</p>
+      <div class="fields" style="margin-top:8px">
+        <div class="field"><label for="calGear">Gear</label><select id="calGear"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option></select></div>
+        <div class="field"><label for="calRpm">Tach rpm</label><input type="number" id="calRpm" value="7500" step="50"></div>
+        <div class="field"><label for="calDash">Dash mph</label><input type="number" id="calDash" value="80" step="1"></div>
+        <div class="field"><label for="calGps">GPS mph (optional)</label><input type="number" id="calGps" value="" step="0.5" placeholder="—"></div>
+      </div>
+      <p class="note mono" id="calOut"></p>
+      <div class="btnrow"><button id="calApply" type="button">Use this speedometer error</button></div>
+    </details>
+  </section>
+
+  <section class="panel">
+    <details id="bikeDetails">
+      <summary>Bike data &amp; assumptions</summary>
+      <h3>Gearbox ratios</h3>
+      <div class="gears" id="gears"></div>
+      <div class="fields" style="margin-top:10px">
+        <div class="field"><label for="primary">Primary ratio</label><input type="number" id="primary" value="3.083" step="0.001"></div>
+        <div class="field"><label for="redline">Shift / limiter rpm</label><input type="number" id="redline" value="10000" step="100"></div>
+        <div class="field"><label for="tireW">Rear tire width (mm)</label><input type="number" id="tireW" value="150"></div>
+        <div class="field"><label for="tireA">Aspect (%)</label><input type="number" id="tireA" value="70"></div>
+        <div class="field"><label for="rim">Rim (in)</label><input type="number" id="rim" value="17"></div>
+        <div class="field"><label for="squat">Rolling squat (%)</label><input type="number" id="squat" value="3" step="0.5"></div>
+        <div class="field"><label for="bikeKg">Bike, wet (kg)</label><input type="number" id="bikeKg" value="175"></div>
+        <div class="field"><label for="eff">Drivetrain efficiency</label><input type="number" id="eff" value="0.90" step="0.01"></div>
+        <div class="field"><label for="cda">CdA (m²)</label><input type="number" id="cda" value="0.55" step="0.01"></div>
+        <div class="field"><label for="crr">Rolling resistance</label><input type="number" id="crr" value="0.018" step="0.001"></div>
+        <div class="field"><label for="ie">Engine inertia (kg·m²)</label><input type="number" id="ie" value="0.012" step="0.001"></div>
+        <div class="field"><label for="iw">Both wheels inertia (kg·m²)</label><input type="number" id="iw" value="1.0" step="0.1"></div>
+      </div>
+      <h3 style="margin-top:14px">Engine torque curve (crank N·m)</h3>
+      <div class="tq" id="tq"></div>
+      <p class="note">Estimated shape anchored to BMW's 28 N·m @ 7,500 and 34 hp @ 9,500. Paste in a real dyno curve if you have one; wheel-dyno numbers already include drivetrain loss, so set efficiency to 1.0.</p>
+      <div class="btnrow"><button id="reset" type="button">Reset everything to defaults</button></div>
+    </details>
+  </section>
+</aside>
+
+<main class="main">
+  <div class="strip" id="strip"></div>
+
+  <section class="panel">
+    <h2>Engine speed vs road speed</h2>
+    <p class="sub">One line per gear. Solid lines are the focus setup, dashed lines the comparison. The shaded band is where the exhaust gets loud.</p>
+    <div class="controls">
+      <div class="field"><label for="focus">Focus setup</label><select id="focus"></select></div>
+      <div class="field"><label for="compare">Compare with</label><select id="compare"></select></div>
+    </div>
+    <div class="chart" id="c1"></div>
+    <div class="legend" id="lg1"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Rear-wheel torque by gear</h2>
+    <p class="sub">Engine torque × overall ratio × drivetrain efficiency. The grey curve is what the road takes (wind, rolling resistance, and the highway grade) expressed as wheel torque. The gap between a gear's curve and the road curve is what's left to accelerate with.</p>
+    <div class="chart" id="c2"></div>
+    <div class="legend" id="lg2"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Acceleration available</h2>
+    <p class="sub">Solid: best gear at each speed (what you get if you downshift). Dashed: stuck in 6th. This is the number that decides how passing feels.</p>
+    <div class="chart" id="c3"></div>
+    <div class="legend" id="lg3"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Highway</h2>
+    <div id="insight"></div>
+    <div class="tablewrap"><table id="t1"></table></div>
+  </section>
+
+  <div class="two">
+    <section class="panel">
+      <h2>Passing</h2>
+      <p class="sub" id="passSub"></p>
+      <div class="tablewrap"><table id="t2"></table></div>
+    </section>
+    <section class="panel">
+      <h2>Hill start in 1st</h2>
+      <p class="sub" id="hillSub"></p>
+      <div class="tablewrap"><table id="t3"></table></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <h2>Gear equivalence</h2>
+    <p class="sub">Rear-wheel torque multiplication of each comparison gear against the focus setup's same gear and the gear above it. A positive "one gear up" number means downshifting on the new gearing still beats the old gearing in the higher gear.</p>
+    <div class="tablewrap"><table id="t4"></table></div>
+  </section>
+
+  <section class="panel">
+    <h2>How this works, and what to trust</h2>
+    <div class="notes">
+      <p><b>Gear ratios.</b> Primary 3.083 and gearbox 3.000 / 2.063 / 1.588 / 1.286 / 1.095 / 0.955 come from owner-posted manual data. One forum post lists the same numbers shifted by one position, so run the tach check: with these defaults, stock gearing gives about 100 rpm per true mph in 6th, which matches owner reports of ~7,200 rpm at 70.</p>
+      <p><b>Speedometer.</b> Dash speed reads high on most bikes. Your report of 7,500 rpm around 80 indicated fits a speedometer reading 5–7% high. The G 310 GS takes road speed from a wheel sensor, so a sprocket change should not alter the speedometer, but confirm against GPS after the swap.</p>
+      <p><b>Wheel torque.</b> Swapping one sprocket scales rear-wheel torque in every gear by exactly the final-drive change. 16→17 front is −5.9%; 17/42 is only −1.2% versus stock, so it mostly cancels the point of the swap.</p>
+      <p><b>Acceleration model.</b> Thrust minus aerodynamic drag, rolling resistance and grade, divided by mass plus the rotating inertia of wheels and engine (the engine term is large in low gears, which softens the loss from taller gearing). Shift time is ignored, so best-gear times are slightly optimistic for everyone equally.</p>
+      <p><b>Hill start.</b> Modeled as a clutch-slip launch holding the launch rpm until first gear catches up. Clutch-out speed is how fast the bike is moving when the clutch fully engages; a higher number means more slipping on a steep start.</p>
+      <p><b>Torque curve.</b> The default is an estimate, not a dyno sheet. Absolute times will shift with a real curve; the differences between setups hold up much better because they all share the same engine.</p>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+(function(){
+"use strict";
+const DEF = {
+  setups:[
+    {on:true,name:"Stock",f:16,r:40},
+    {on:true,name:"17 front",f:17,r:40},
+    {on:true,name:"17 / 41",f:17,r:41},
+    {on:true,name:"17 / 42",f:17,r:42}
+  ],
+  gears:[3.000,2.063,1.588,1.286,1.095,0.955],
+  tq:[[2500,17],[3000,18.5],[4000,21],[5000,23.5],[6000,25.5],[7000,27.5],[7500,28],[8000,27.8],[8500,27],[9000,26],[9500,25.1],[10000,23.5],[10500,21]],
+  focus:0, compare:1
+};
+const SCALARS = ["cruise","loud","pass0","pass1","passGrade","rider","hillGrade","launch","speedo","primary","redline","tireW","tireA","rim","squat","bikeKg","eff","cda","crr","ie","iw"];
+const SCALAR_DEF = {};
+SCALARS.forEach(id=>SCALAR_DEF[id]=document.getElementById(id).value);
+const KEY="g310gs-sprocket-lab-v1";
+let S = JSON.parse(JSON.stringify(DEF));
+const $ = id=>document.getElementById(id);
+const MPH = 0.44704, G = 9.81, RHO = 1.2;
+
+/* ---------- build inputs ---------- */
+function buildSetups(){
+  const box=$("setups");
+  box.querySelectorAll(".row").forEach(e=>e.remove());
+  S.setups.forEach((s,i)=>{
+    const L="ABCD"[i];
+    const els=[
+      `<input class="row" type="checkbox" id="on${i}" ${s.on?"checked":""} aria-label="Include setup ${L}">`,
+      `<span class="row swatch" style="background:var(--s${i})"></span>`,
+      `<input class="row" type="text" id="nm${i}" value="${s.name.replace(/"/g,"&quot;")}" aria-label="Setup ${L} name">`,
+      `<input class="row" type="number" id="f${i}" value="${s.f}" min="12" max="20" aria-label="Setup ${L} front teeth">`,
+      `<input class="row" type="number" id="r${i}" value="${s.r}" min="30" max="55" aria-label="Setup ${L} rear teeth">`
+    ];
+    box.insertAdjacentHTML("beforeend",els.join(""));
+  });
+  S.setups.forEach((s,i)=>{
+    $("on"+i).addEventListener("change",e=>{s.on=e.target.checked;update();});
+    $("nm"+i).addEventListener("input",e=>{s.name=e.target.value||("Setup "+"ABCD"[i]);update();});
+    $("f"+i).addEventListener("input",e=>{const v=+e.target.value;if(v>0){s.f=v;update();}});
+    $("r"+i).addEventListener("input",e=>{const v=+e.target.value;if(v>0){s.r=v;update();}});
+  });
+}
+function buildGears(){
+  $("gears").innerHTML=S.gears.map((g,i)=>`<div class="field"><label for="gr${i}">${i+1}${["st","nd","rd","th","th","th"][i]}</label><input type="number" id="gr${i}" value="${g}" step="0.001"></div>`).join("");
+  S.gears.forEach((g,i)=>$("gr"+i).addEventListener("input",e=>{const v=+e.target.value;if(v>0){S.gears[i]=v;update();}}));
+}
+function buildTq(){
+  $("tq").innerHTML=`<span style="color:var(--muted)">rpm</span><span style="color:var(--muted)">N·m</span>`+
+    S.tq.map((p,i)=>`<input type="number" id="tr${i}" value="${p[0]}" step="100" aria-label="Torque point ${i+1} rpm"><input type="number" id="tv${i}" value="${p[1]}" step="0.1" aria-label="Torque point ${i+1} newton-metres">`).join("");
+  S.tq.forEach((p,i)=>{
+    $("tr"+i).addEventListener("input",e=>{p[0]=+e.target.value;update();});
+    $("tv"+i).addEventListener("input",e=>{p[1]=+e.target.value;update();});
+  });
+}
+function buildSelects(){
+  ["focus","compare"].forEach(id=>{
+    const sel=$(id);
+    sel.innerHTML=S.setups.map((s,i)=>`<option value="${i}">${"ABCD"[i]} · ${esc(s.name)} (${s.f}/${s.r})</option>`).join("");
+    sel.value=S[id];
+  });
+}
+function esc(t){return String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* ---------- model ---------- */
+function P(){
+  const o={}; SCALARS.forEach(id=>o[id]=parseFloat($(id).value));
+  const dia=(o.rim*25.4+2*o.tireW*o.tireA/100)/1000;
+  o.circ=Math.PI*dia*(1-o.squat/100); o.r=o.circ/(2*Math.PI);
+  o.m=o.bikeKg+o.rider; o.k=1+o.speedo/100;
+  o.tq=S.tq.filter(p=>isFinite(p[0])&&isFinite(p[1])&&p[0]>0).sort((a,b)=>a[0]-b[0]);
+  return o;
+}
+function torque(p,rpm){
+  const t=p.tq; if(!t.length||rpm>p.redline+1) return 0;
+  if(rpm<=t[0][0]) return t[0][1];
+  for(let i=1;i<t.length;i++){ if(rpm<=t[i][0]){const a=t[i-1],b=t[i];return a[1]+(b[1]-a[1])*(rpm-a[0])/(b[0]-a[0]);} }
+  return t[t.length-1][1];
+}
+const fd=s=>s.r/s.f;
+const ov=(p,s,g)=>p.primary*S.gears[g]*fd(s);
+const rpmAt=(p,s,g,v)=>v/p.circ*60*ov(p,s,g);           // v true m/s
+const vAt=(p,s,g,rpm)=>rpm*p.circ/(60*ov(p,s,g));
+const thrust=(p,s,g,rpm)=>torque(p,rpm)*ov(p,s,g)*p.eff/p.r;
+const meff=(p,s,g,coupled)=>p.m+p.iw/(p.r*p.r)+(coupled?p.ie*Math.pow(ov(p,s,g)/p.r,2):0);
+function road(p,v,gradePct){const th=Math.atan(gradePct/100);return 0.5*RHO*p.cda*v*v+p.m*G*(p.crr*Math.cos(th)+Math.sin(th));}
+function accelGear(p,s,g,v,grade){
+  const rpm=rpmAt(p,s,g,v); if(rpm>p.redline) return null;
+  const rr=Math.max(rpm,p.tq.length?p.tq[0][0]:0);
+  if(rpm<(p.tq.length?p.tq[0][0]:0) && g>0) return null;   // only 1st may slip the clutch
+  return (thrust(p,s,g,rr)-road(p,v,grade))/meff(p,s,g,rpm>=rr-1);
+}
+function bestAccel(p,s,v,grade){
+  let best=null,bg=-1;
+  for(let g=0;g<6;g++){const a=accelGear(p,s,g,v,grade);if(a!==null&&(best===null||a>best)){best=a;bg=g;}}
+  return {a:best,g:bg};
+}
+function timeTo(p,s,v0,v1,mode,grade){
+  let v=v0,t=0,dt=0.01,x=0;
+  while(v<v1){
+    let a;
+    if(mode==="best"){a=bestAccel(p,s,v,grade).a;}
+    else{ if(rpmAt(p,s,mode,v)>p.redline) return {fail:"limiter at "+fmt(v/MPH*p.k,0)}; a=accelGear(p,s,mode,v,grade); }
+    if(a===null||a<=0.002) return {fail:"can't reach"};
+    v+=a*dt; t+=dt; x+=v*dt; if(t>180) return {fail:">3 min"};
+  }
+  return {t,x};
+}
+function topSpeed(p,s){
+  let vt=0,gt=-1;
+  for(let v=1;v<80;v+=0.05){const b=bestAccel(p,s,v,0);if(b.a!==null&&b.a>0){vt=v;gt=b.g;}else if(v>15)break;}
+  return {v:vt,g:gt,rpm:gt>=0?rpmAt(p,s,gt,vt):0};
+}
+function launch(p,s,gradePct){
+  const lr=p.launch, th=Math.atan(gradePct/100);
+  const F=thrust(p,s,0,lr);
+  const resist=p.m*G*(p.crr*Math.cos(th)+Math.sin(th));
+  const a0=(F-resist)/meff(p,s,0,false);
+  const a=F/(p.m*G), c=p.crr, R=Math.sqrt(1+c*c);
+  const maxG = a>=R ? Infinity : Math.tan(Math.asin(a/R)-Math.atan(c))*100;
+  const vLock=vAt(p,s,0,lr);
+  // 0 -> 30 dash mph on the hill: slip phase then best gear
+  let v=0,t=0,dt=0.005,target=30*MPH/p.k,ok=true;
+  while(v<target){
+    let acc;
+    if(v<vLock) acc=(thrust(p,s,0,lr)-road(p,v,gradePct))/meff(p,s,0,false);
+    else acc=bestAccel(p,s,v,gradePct).a;
+    if(acc===null||acc<=0){ok=false;break;}
+    v+=acc*dt;t+=dt;if(t>60){ok=false;break;}
+  }
+  return {F,wt:F*p.r,a0,maxG,vLock,t030:ok?t:null};
+}
+
+/* ---------- formatting ---------- */
+function fmt(x,d){if(x===null||!isFinite(x))return "—";return x.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});}
+function pct(x,base,d=1,invert=false){
+  if(!isFinite(x)||!isFinite(base)||base===0) return "";
+  const v=(x/base-1)*100; if(Math.abs(v)<0.05) return `<span style="color:var(--muted)">±0%</span>`;
+  const good=invert? v<0 : v>0;
+  return `<span class="${good?"pos":"neg"}">${v>0?"+":""}${fmt(v,d)}%</span>`;
+}
+const col=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const ord=g=>(g+1)+["st","nd","rd","th","th","th"][g];
+
+/* ---------- chart ---------- */
+function chart(el,cfg){
+  const W=Math.max(300,el.clientWidth), H=Math.round(Math.min(420,Math.max(260,W*0.5)));
+  const m={l:54,r:14,t:12,b:38}; const iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const X=x=>m.l+(x-cfg.x0)/(cfg.x1-cfg.x0)*iw, Y=y=>m.t+ih-(y-cfg.y0)/(cfg.y1-cfg.y0)*ih;
+  const ink=col("--ink"),muted=col("--muted"),line=col("--line");
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  if(cfg.band){const [a,b,c]=cfg.band;s+=`<rect x="${m.l}" y="${Y(Math.min(b,cfg.y1))}" width="${iw}" height="${Y(Math.max(a,cfg.y0))-Y(Math.min(b,cfg.y1))}" fill="${c}"/>`;}
+  for(let y=cfg.y0;y<=cfg.y1+1e-9;y+=cfg.ys){s+=`<line x1="${m.l}" x2="${m.l+iw}" y1="${Y(y)}" y2="${Y(y)}" stroke="${line}" stroke-width="1"/><text x="${m.l-6}" y="${Y(y)+4}" text-anchor="end" fill="${muted}">${cfg.fy?cfg.fy(y):fmt(y,0)}</text>`;}
+  for(let x=cfg.x0;x<=cfg.x1+1e-9;x+=cfg.xs){s+=`<line x1="${X(x)}" x2="${X(x)}" y1="${m.t}" y2="${m.t+ih}" stroke="${line}" stroke-width="1" opacity=".55"/><text x="${X(x)}" y="${m.t+ih+16}" text-anchor="middle" fill="${muted}">${fmt(x,0)}</text>`;}
+  s+=`<text x="${m.l+iw/2}" y="${H-4}" text-anchor="middle" fill="${muted}">${esc(cfg.xl)}</text>`;
+  s+=`<text transform="translate(12 ${m.t+ih/2}) rotate(-90)" text-anchor="middle" fill="${muted}">${esc(cfg.yl)}</text>`;
+  (cfg.hl||[]).forEach(h=>{if(h.y>cfg.y1||h.y<cfg.y0)return;s+=`<line x1="${m.l}" x2="${m.l+iw}" y1="${Y(h.y)}" y2="${Y(h.y)}" stroke="${h.c}" stroke-width="1.5" stroke-dasharray="${h.d||""}"/><text x="${m.l+iw-4}" y="${Y(h.y)-5}" text-anchor="end" fill="${h.c}">${esc(h.label)}</text>`;});
+  (cfg.vl||[]).forEach(h=>{if(h.x>cfg.x1||h.x<cfg.x0)return;s+=`<line x1="${X(h.x)}" x2="${X(h.x)}" y1="${m.t}" y2="${m.t+ih}" stroke="${muted}" stroke-width="1" stroke-dasharray="3 3"/><text x="${X(h.x)+4}" y="${m.t+12}" fill="${muted}">${esc(h.label)}</text>`;});
+  s+=`<clipPath id="cp${el.id}"><rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}"/></clipPath><g clip-path="url(#cp${el.id})">`;
+  cfg.series.forEach(se=>{
+    if(se.pts.length<2)return;
+    const d=se.pts.map((q,i)=>(i?"L":"M")+X(q[0]).toFixed(1)+" "+Y(q[1]).toFixed(1)).join("");
+    s+=`<path d="${d}" fill="none" stroke="${se.c}" stroke-width="${se.w||2}" stroke-dasharray="${se.dash||""}" stroke-linejoin="round" stroke-linecap="round" opacity="${se.o||1}"/>`;
+    if(se.end){const q=se.pts[se.pts.length-1];s+=`<circle cx="${X(q[0])}" cy="${Y(q[1])}" r="2.6" fill="${se.c}"/>`;}
+  });
+  s+=`</g><line id="xh${el.id}" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" stroke="${ink}" stroke-width="1" opacity="0"/>`;
+  s+=`<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" id="hit${el.id}"/></svg><div class="tip" hidden></div>`;
+  el.innerHTML=s;
+  const tip=el.querySelector(".tip"), xh=el.querySelector("#xh"+el.id), hit=el.querySelector("#hit"+el.id);
+  function interp(pts,x){if(x<pts[0][0]||x>pts[pts.length-1][0])return null;for(let i=1;i<pts.length;i++){if(x<=pts[i][0]){const a=pts[i-1],b=pts[i];return b[0]===a[0]?a[1]:a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0]);}}return null;}
+  function move(ev){
+    const r=el.querySelector("svg").getBoundingClientRect(); const cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    const sx=cx*W/r.width; const x=cfg.x0+(sx-m.l)/iw*(cfg.x1-cfg.x0); if(x<cfg.x0||x>cfg.x1){out();return;}
+    xh.setAttribute("x1",sx);xh.setAttribute("x2",sx);xh.setAttribute("opacity",".35");
+    const rows=cfg.series.filter(se=>se.name).map(se=>({se,y:interp(se.pts,x)})).filter(o=>o.y!==null);
+    tip.innerHTML=`<div style="color:var(--muted)">${fmt(x,0)} ${esc(cfg.xu||"")}</div>`+rows.map(o=>`<div><span style="color:${o.se.c}">${o.se.dash?"┅":"━"}</span> ${esc(o.se.name)} <b>${cfg.fv?cfg.fv(o.y):fmt(o.y,0)}</b></div>`).join("");
+    tip.hidden=false;
+    const tw=tip.offsetWidth, left=cx+14+tw>r.width?cx-14-tw:cx+14;
+    tip.style.left=Math.max(0,left)+"px"; tip.style.top=(m.t*r.width/W+6)+"px";
+  }
+  function out(){tip.hidden=true;xh.setAttribute("opacity","0");}
+  hit.addEventListener("mousemove",move);hit.addEventListener("mouseleave",out);
+  hit.addEventListener("touchstart",move,{passive:true});hit.addEventListener("touchmove",move,{passive:true});
+}
+function niceStep(range,target){const raw=range/target, mag=Math.pow(10,Math.floor(Math.log10(raw)));const n=raw/mag;return (n<1.5?1:n<3.5?2:n<7.5?5:10)*mag;}
+
+/* ---------- render ---------- */
+function render(){
+  const p=P();
+  const on=S.setups.map((s,i)=>({...s,i})).filter(s=>s.on);
+  const A=S.setups[0];
+  const fi=+S.focus, ci=+S.compare, F=S.setups[fi], C=S.setups[ci];
+  const cruiseT=p.cruise*MPH/p.k;
+  const gc=i=>col("--g"+i), sc=i=>col("--s"+i);
+
+  /* strip: focus vs compare */
+  const rf=rpmAt(p,F,5,cruiseT), rc=rpmAt(p,C,5,cruiseT);
+  const lf=vAt(p,F,5,p.loud)/MPH*p.k, lc=vAt(p,C,5,p.loud)/MPH*p.k;
+  const af=accelGear(p,F,5,cruiseT,p.passGrade), ac=accelGear(p,C,5,cruiseT,p.passGrade);
+  const pf=timeTo(p,F,p.pass0*MPH/p.k,p.pass1*MPH/p.k,"best",p.passGrade), pc=timeTo(p,C,p.pass0*MPH/p.k,p.pass1*MPH/p.k,"best",p.passGrade);
+  const wf=thrust(p,F,0,p.launch), wc=thrust(p,C,0,p.launch);
+  const nm=s=>`${s.f}/${s.r}`;
+  const cell=(k,a,b,d)=>`<div class="cell"><div class="k">${k}</div><div class="v">${a}<span class="arrow">→</span>${b}</div><div class="d">${d}</div></div>`;
+  $("strip").innerHTML=
+    cell(`6th-gear rpm at ${fmt(p.cruise,0)} mph`,fmt(rf,0),fmt(rc,0),`${nm(F)} → ${nm(C)} · ${pct(rc,rf,1,true)}`)+
+    cell(`Loud zone starts (dash mph)`,fmt(lf,0),fmt(lc,0),`in 6th at ${fmt(p.loud,0)} rpm · ${lc>=lf?'<span class="pos">+':'<span class="neg">'}${fmt(lc-lf,1)} mph</span>`)+
+    cell(`${fmt(p.pass0,0)}–${fmt(p.pass1,0)} mph, best gear`,pf.t?fmt(pf.t,1)+"s":"—",pc.t?fmt(pc.t,1)+"s":"—",`${pc.t&&pf.t?pct(pc.t,pf.t,1,true):""} · in 6th at ${fmt(p.cruise,0)}: ${af!==null&&ac!==null&&af>0?pct(ac,af,0):"—"}`)+
+    cell(`1st-gear launch thrust`,fmt(wf,0)+" N",fmt(wc,0)+" N",`at ${fmt(p.launch,0)} rpm · ${pct(wc,wf,1)}`);
+
+  /* chart 1: rpm vs speed */
+  const vmaxDash=Math.max(...on.map(s=>vAt(p,s,5,p.redline)/MPH*p.k),cruiseT/MPH*p.k+10);
+  const x1=Math.ceil(Math.min(vmaxDash,130)/10)*10;
+  const ser1=[];
+  [[fi,""],[ci,"6 4"]].forEach(([si,dash],k)=>{
+    if(k===1&&ci===fi)return; const s=S.setups[si];
+    for(let g=0;g<6;g++){const vr=vAt(p,s,g,p.redline)/MPH*p.k;ser1.push({pts:[[0,0],[vr,p.redline]],c:gc(g),dash,w:dash?1.8:2.4,name:`${"ABCD"[si]} ${ord(g)}`,end:true});}
+  });
+  chart($("c1"),{aria:"RPM versus dash speed by gear",x0:0,x1,xs:10,y0:0,y1:Math.ceil((p.redline+500)/1000)*1000,ys:1000,xl:"dash speed (mph)",yl:"engine rpm",xu:"mph",
+    fy:y=>y?fmt(y/1000,0)+"k":"0",band:[p.loud,p.redline,col("--loud")],
+    hl:[{y:p.redline,c:col("--red"),label:"limiter / shift"},{y:p.loud,c:col("--accent"),label:"loud above "+fmt(p.loud,0),d:"4 3"}],
+    vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser1,fv:y=>fmt(y,0)+" rpm"});
+  $("lg1").innerHTML=S.gears.map((g,i)=>`<span><i style="border-color:${gc(i)}"></i>${ord(i)}</span>`).join("")+
+    `<span><i style="border-color:var(--muted)"></i>${esc(F.name)} ${nm(F)}</span>`+(ci!==fi?`<span><i style="border-color:var(--muted);border-top-style:dashed"></i>${esc(C.name)} ${nm(C)}</span>`:"");
+
+  /* chart 2: wheel torque vs speed */
+  const ser2=[]; let ymax2=0;
+  [[fi,""],[ci,"6 4"]].forEach(([si,dash],k)=>{
+    if(k===1&&ci===fi)return; const s=S.setups[si]; const r0=p.tq.length?p.tq[0][0]:1000;
+    for(let g=0;g<6;g++){const pts=[];for(let i=0;i<=40;i++){const rpm=r0+(p.redline-r0)*i/40;const v=vAt(p,s,g,rpm)/MPH*p.k;const wt=thrust(p,s,g,rpm)*p.r;pts.push([v,wt]);ymax2=Math.max(ymax2,wt);}
+      ser2.push({pts,c:gc(g),dash,w:dash?1.8:2.4,name:`${"ABCD"[si]} ${ord(g)}`});}
+  });
+  const roadPts=[];for(let v=0;v<=x1;v+=1){roadPts.push([v,road(p,v*MPH/p.k,p.passGrade)*p.r]);}
+  ser2.push({pts:roadPts,c:col("--muted"),w:2.5,o:.8,name:"road load"});
+  const y1b=Math.ceil(ymax2*1.05/50)*50;
+  chart($("c2"),{aria:"Rear wheel torque versus speed",x0:0,x1,xs:10,y0:0,y1:y1b,ys:niceStep(y1b,6),xl:"dash speed (mph)",yl:"rear-wheel torque (N·m)",xu:"mph",
+    vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser2,fv:y=>`${fmt(y,0)} N·m · ${fmt(y*0.7376,0)} lb-ft`});
+  $("lg2").innerHTML=S.gears.map((g,i)=>`<span><i style="border-color:${gc(i)}"></i>${ord(i)}</span>`).join("")+
+    `<span><i style="border-color:var(--muted)"></i>${esc(F.name)}</span>`+(ci!==fi?`<span><i style="border-color:var(--muted);border-top-style:dashed"></i>${esc(C.name)}</span>`:"")+`<span><i style="border-color:var(--muted);border-top-width:3px"></i>road load at ${fmt(p.passGrade,1)}% grade</span>`;
+
+  /* chart 3: accel */
+  const ser3=[]; let ymax3=0; const x0c=20;
+  on.forEach(s=>{
+    const best=[],six=[];
+    for(let vd=x0c;vd<=x1;vd+=0.5){const v=vd*MPH/p.k;const b=bestAccel(p,s,v,p.passGrade);if(b.a!==null&&b.a>-0.05){best.push([vd,b.a/MPH]);ymax3=Math.max(ymax3,b.a/MPH);}
+      const a6=accelGear(p,s,5,v,p.passGrade);if(a6!==null&&a6>-0.05)six.push([vd,a6/MPH]);}
+    ser3.push({pts:best,c:sc(s.i),w:2.4,name:`${s.name} best`});
+    ser3.push({pts:six,c:sc(s.i),w:1.8,dash:"6 4",name:`${s.name} 6th`});
+  });
+  const y1c=Math.max(1,Math.ceil(ymax3*1.08*2)/2);
+  chart($("c3"),{aria:"Acceleration available versus speed",x0:x0c,x1,xs:10,y0:0,y1:y1c,ys:niceStep(y1c,6),xl:"dash speed (mph)",yl:"acceleration (mph per s)",xu:"mph",
+    fy:y=>fmt(y,y<10?1:0),vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser3,fv:y=>`${fmt(y,2)} mph/s · ${fmt(y*MPH/G,3)} g`});
+  $("lg3").innerHTML=on.map(s=>`<span><i style="border-color:${sc(s.i)}"></i>${esc(s.name)} ${nm(s)}</span>`).join("")+`<span><i style="border-color:var(--muted);border-top-style:dashed"></i>held in 6th</span>`;
+
+  /* table 1: highway */
+  const tops=S.setups.map(s=>topSpeed(p,s));
+  const base=S.setups[0];
+  let h=`<thead><tr><th>Setup</th><th>Final drive</th><th>vs A</th><th>6th rpm @ ${fmt(p.cruise,0)}</th><th>6th rpm @ 70</th><th>Loud from (mph)</th><th>1st tops out (mph)</th><th>Est. top speed</th></tr></thead><tbody>`;
+  on.forEach(s=>{const t=tops[s.i];
+    h+=`<tr class="${s.i===0?"base":""}"><td><span class="tag" style="background:var(--s${s.i})"></span>${esc(s.name)} <span style="color:var(--muted)">${nm(s)}</span></td><td>${fmt(fd(s),3)}</td><td>${s.i===0?"—":pct(1/fd(s),1/fd(base),1)+" taller"}</td>
+    <td>${fmt(rpmAt(p,s,5,cruiseT),0)}</td><td>${fmt(rpmAt(p,s,5,70*MPH/p.k),0)}</td><td>${fmt(vAt(p,s,5,p.loud)/MPH*p.k,1)}</td><td>${fmt(vAt(p,s,0,p.redline)/MPH*p.k,1)}</td>
+    <td>${fmt(t.v/MPH*p.k,0)} mph <span style="color:var(--muted)">${t.g>=0?ord(t.g)+", "+fmt(t.rpm,0):""}</span></td></tr>`;});
+  $("t1").innerHTML=h+"</tbody>";
+  // insight: equivalent gear
+  const cmp=on.find(s=>s.i===ci)||C;
+  const r5c=ov(p,C,4), r6f=ov(p,F,5);
+  $("insight").innerHTML=`<p class="insight">${esc(C.name)} (${nm(C)}) is ${fmt(Math.abs(fd(C)/fd(F)-1)*100,1)}% ${fd(C)<fd(F)?"taller":"shorter"} than ${esc(F.name)} (${nm(F)}). Its 5th gear (${fmt(r5c,2)}:1 overall) sits ${fmt(Math.abs(r5c/r6f-1)*100,1)}% ${r5c>r6f?"shorter":"taller"} than ${esc(F.name)}'s 6th (${fmt(r6f,2)}:1), so a quick downshift to 5th gives roughly the passing response you have now in 6th.</p>`;
+
+  /* table 2: passing */
+  const v0=p.pass0*MPH/p.k, v1=p.pass1*MPH/p.k;
+  $("passSub").textContent=`${fmt(p.pass0,0)} → ${fmt(p.pass1,0)} dash mph on a ${fmt(p.passGrade,1)}% grade with ${fmt(p.m,0)} kg total. Acceleration column is at ${fmt(p.cruise,0)} mph.`;
+  const tb=S.setups.map(s=>({s6:timeTo(p,s,v0,v1,5,p.passGrade),s5:timeTo(p,s,v0,v1,4,p.passGrade),sb:timeTo(p,s,v0,v1,"best",p.passGrade),a6:accelGear(p,s,5,cruiseT,p.passGrade)}));
+  const tt=o=>o.t?fmt(o.t,1)+" s":`<span style="color:var(--muted)">${o.fail}</span>`;
+  h=`<thead><tr><th>Setup</th><th>in 6th</th><th>in 5th</th><th>best gear</th><th>vs A</th><th>6th accel @ ${fmt(p.cruise,0)}</th></tr></thead><tbody>`;
+  on.forEach(s=>{const o=tb[s.i],b=tb[0];
+    h+=`<tr class="${s.i===0?"base":""}"><td><span class="tag" style="background:var(--s${s.i})"></span>${esc(s.name)}</td><td>${tt(o.s6)}</td><td>${tt(o.s5)}</td><td>${tt(o.sb)}</td><td>${s.i===0?"—":(o.sb.t&&b.sb.t?pct(o.sb.t,b.sb.t,1,true):"—")}</td><td>${o.a6!==null&&o.a6>0?fmt(o.a6/MPH,2)+" mph/s "+(s.i?pct(o.a6,b.a6,0):""):"—"}</td></tr>`;});
+  $("t2").innerHTML=h+"</tbody>";
+
+  /* table 3: hill */
+  $("hillSub").textContent=`${fmt(p.hillGrade,0)}% grade, clutch slipped at ${fmt(p.launch,0)} rpm until 1st engages, then best gear to 30 mph.`;
+  const L=S.setups.map(s=>launch(p,s,p.hillGrade));
+  h=`<thead><tr><th>Setup</th><th>Wheel torque</th><th>vs A</th><th>Pull-away</th><th>Clutch-out at</th><th>Max grade*</th><th>0–30 mph</th></tr></thead><tbody>`;
+  on.forEach(s=>{const o=L[s.i],b=L[0];
+    h+=`<tr class="${s.i===0?"base":""}"><td><span class="tag" style="background:var(--s${s.i})"></span>${esc(s.name)}</td><td>${fmt(o.wt,0)} N·m</td><td>${s.i===0?"—":pct(o.wt,b.wt,1)}</td><td>${fmt(o.a0/G,2)} g</td><td>${fmt(o.vLock/MPH*p.k,1)} mph</td><td>${o.maxG===Infinity?"&gt;100%":fmt(o.maxG,0)+"%"}</td><td>${o.t030?fmt(o.t030,1)+" s":"—"}</td></tr>`;});
+  $("t3").innerHTML=h+`</tbody><caption style="caption-side:bottom;text-align:left;font-size:12px;color:var(--muted);padding-top:8px">*Steepest grade first gear can climb at the launch rpm; traction and loop-out limits come first on loose surfaces.</caption>`;
+
+  /* table 4: gear equivalence */
+  h=`<thead><tr><th>${esc(C.name)} gear</th><th>Overall ratio</th><th>${esc(F.name)} same gear</th><th>Torque vs same gear</th><th>${esc(F.name)} one gear up</th><th>Torque vs one gear up</th></tr></thead><tbody>`;
+  for(let g=0;g<6;g++){const oc=ov(p,C,g), os=ov(p,F,g), ou=g<5?ov(p,F,g+1):null;
+    h+=`<tr><td>${ord(g)}</td><td>${fmt(oc,2)}</td><td>${fmt(os,2)}</td><td>${pct(oc,os,1)}</td><td>${ou?ord(g+1)+" · "+fmt(ou,2):"—"}</td><td>${ou?pct(oc,ou,1):"—"}</td></tr>`;}
+  $("t4").innerHTML=h+"</tbody>";
+
+  /* calibration */
+  calOut(p);
+}
+function calOut(p){
+  const g=+$("calGear").value-1, rpm=+$("calRpm").value, dash=+$("calDash").value, gps=parseFloat($("calGps").value);
+  const s=S.setups[0];
+  const vTrue=vAt(p,s,g,rpm)/MPH;
+  const err=(dash/vTrue-1)*100;
+  let t=`Setup A in ${ord(g)} at ${fmt(rpm,0)} rpm = ${fmt(vTrue,1)} true mph, so the dash reads ${err>=0?"+":""}${fmt(err,1)}%.`;
+  if(isFinite(gps)&&gps>0){const rat=gps/vTrue;t+=` Your GPS says ${fmt(gps,1)}: the model is ${fmt(Math.abs(rat-1)*100,1)}% ${rat>1?"slow":"fast"}`+(Math.abs(rat-1)>0.04?". That's more than tire wear explains; check the gear ratios or the setup A sprockets.":", within normal tire-size variation.");}
+  else if(err<-3||err>15) t+=" That's outside the usual range, so the gear ratios or sprockets may be wrong.";
+  $("calOut").textContent=t; $("calApply").dataset.err=err.toFixed(1);
+}
+
+/* ---------- state ---------- */
+function save(){try{const sc={};SCALARS.forEach(id=>sc[id]=$(id).value);localStorage.setItem(KEY,JSON.stringify({S,sc}));}catch(e){}}
+function load(){try{const raw=localStorage.getItem(KEY);if(!raw)return;const o=JSON.parse(raw);if(o.S&&o.S.setups&&o.S.setups.length===4)S=o.S;if(o.sc)SCALARS.forEach(id=>{if(o.sc[id]!==undefined)$(id).value=o.sc[id];});}catch(e){}}
+let raf=0;
+function update(){cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{buildSelectsKeep();render();save();});}
+function buildSelectsKeep(){["focus","compare"].forEach(id=>{const sel=$(id);S.setups.forEach((s,i)=>{if(sel.options[i])sel.options[i].textContent=`${"ABCD"[i]} · ${s.name} (${s.f}/${s.r})`;});});}
+function init(){
+  load(); buildSetups(); buildGears(); buildTq(); buildSelects();
+  SCALARS.forEach(id=>$(id).addEventListener("input",update));
+  ["calGear","calRpm","calDash","calGps"].forEach(id=>$(id).addEventListener("input",()=>calOut(P())));
+  $("calApply").addEventListener("click",()=>{$("speedo").value=$("calApply").dataset.err;update();});
+  $("focus").addEventListener("change",e=>{S.focus=+e.target.value;update();});
+  $("compare").addEventListener("change",e=>{S.compare=+e.target.value;update();});
+  $("reset").addEventListener("click",()=>{S=JSON.parse(JSON.stringify(DEF));SCALARS.forEach(id=>$(id).value=SCALAR_DEF[id]);buildSetups();buildGears();buildTq();buildSelects();update();});
+  render();
+  if(window.ResizeObserver){let w=0;new ResizeObserver(en=>{const nw=Math.round(en[0].contentRect.width);if(Math.abs(nw-w)>4){w=nw;update();}}).observe($("c1"));}
+  try{const mq=window.matchMedia("(prefers-color-scheme: dark)");mq.addEventListener&&mq.addEventListener("change",update);}catch(e){}
+  new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+}
+init();
+})();
+</script>
