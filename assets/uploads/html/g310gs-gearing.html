@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>G 310 GS Sprocket Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,7 +101,9 @@ tr.base td{background:var(--soft)}
 .insight{border-left:3px solid var(--accent);padding:4px 0 4px 12px;margin:0 0 12px;font-size:13.5px;max-width:90ch}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
-
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
 <div class="wrap">
 <header>
   <div>
@@ -213,6 +220,20 @@ tr.base td{background:var(--soft)}
   </section>
 
   <section class="panel">
+    <h2>Acceleration benchmark</h2>
+    <p class="sub">A full-throttle standing start, the way magazines measure it: clutch slipped at the launch rpm until 1st hooks up, then flat-out upshifts. Speeds here are true (GPS) mph so they compare with published tests. Open dots mark each upshift.</p>
+    <div class="controls">
+      <div class="field"><label for="benchLaunch">Launch rpm</label><input type="number" id="benchLaunch" value="6500" step="100"></div>
+      <div class="field"><label for="shiftMode">Upshift</label><select id="shiftMode"><option value="optimal">Where thrust is highest</option><option value="limiter">At the limiter</option></select></div>
+      <div class="field"><label for="shiftTime">Shift time (s)</label><input type="number" id="shiftTime" value="0.3" step="0.05" min="0"></div>
+      <div class="field"><label for="wheelie">Wheelie / traction cap (g)</label><input type="number" id="wheelie" value="0.8" step="0.05"></div>
+    </div>
+    <div class="chart" id="c6"></div>
+    <div class="legend" id="lg6"></div>
+    <div class="tablewrap" style="margin-top:12px"><table id="t6"></table></div>
+  </section>
+
+  <section class="panel">
     <h2>Highway</h2>
     <div id="insight"></div>
     <div class="tablewrap"><table id="t1"></table></div>
@@ -243,7 +264,7 @@ tr.base td{background:var(--soft)}
       <p><b>Gear ratios.</b> Primary 3.083 and gearbox 3.000 / 2.063 / 1.588 / 1.286 / 1.095 / 0.955 come from owner-posted manual data. One forum post lists the same numbers shifted by one position, so run the tach check: with these defaults, stock gearing gives about 100 rpm per true mph in 6th, which matches owner reports of ~7,200 rpm at 70.</p>
       <p><b>Speedometer.</b> Dash speed reads high on most bikes. Your report of 7,500 rpm around 80 indicated fits a speedometer reading 5–7% high. The G 310 GS takes road speed from a wheel sensor, so a sprocket change should not alter the speedometer, but confirm against GPS after the swap.</p>
       <p><b>Wheel torque.</b> Swapping one sprocket scales rear-wheel torque in every gear by exactly the final-drive change. 16→17 front is −5.9%; 17/42 is only −1.2% versus stock, so it mostly cancels the point of the swap.</p>
-      <p><b>Acceleration model.</b> Thrust minus aerodynamic drag, rolling resistance and grade, divided by mass plus the rotating inertia of wheels and engine (the engine term is large in low gears, which softens the loss from taller gearing). Shift time is ignored, so best-gear times are slightly optimistic for everyone equally.</p>
+      <p><b>Acceleration model.</b> Thrust minus aerodynamic drag, rolling resistance and grade, divided by mass plus the rotating inertia of wheels and engine (the engine term is large in low gears, which softens the loss from taller gearing). Passing and hill times ignore shift time, so they are slightly optimistic for every setup equally. The acceleration benchmark includes shift time (no drive while the clutch is in) and caps acceleration at the wheelie/traction limit.</p>
       <p><b>Hill start.</b> Modeled as a clutch-slip launch holding the launch rpm until first gear catches up. Clutch-out speed is how fast the bike is moving when the clutch fully engages; a higher number means more slipping on a steep start.</p>
       <p><b>Torque curve.</b> The default is an estimate, not a dyno sheet. Absolute times will shift with a real curve; the differences between setups hold up much better because they all share the same engine.</p>
     </div>
@@ -266,7 +287,7 @@ const DEF = {
   tq:[[2500,17],[3000,18.5],[4000,21],[5000,23.5],[6000,25.5],[7000,27.5],[7500,28],[8000,27.8],[8500,27],[9000,26],[9500,25.1],[10000,23.5],[10500,21]],
   focus:0, compare:1
 };
-const SCALARS = ["shiftRpm","cruise","loud","pass0","pass1","passGrade","rider","hillGrade","launch","speedo","primary","redline","tireW","tireA","rim","squat","bikeKg","eff","cda","crr","ie","iw"];
+const SCALARS = ["benchLaunch","shiftMode","shiftTime","wheelie","shiftRpm","cruise","loud","pass0","pass1","passGrade","rider","hillGrade","launch","speedo","primary","redline","tireW","tireA","rim","squat","bikeKg","eff","cda","crr","ie","iw"];
 const SCALAR_DEF = {};
 SCALARS.forEach(id=>SCALAR_DEF[id]=document.getElementById(id).value);
 const KEY="g310gs-sprocket-lab-v1";
@@ -324,6 +345,7 @@ function P(){
   o.circ=Math.PI*dia*(1-o.squat/100); o.r=o.circ/(2*Math.PI);
   o.m=o.bikeKg+o.rider; o.k=1+o.speedo/100;
   o.tq=S.tq.filter(p=>isFinite(p[0])&&isFinite(p[1])&&p[0]>0).sort((a,b)=>a[0]-b[0]);
+  o.shiftMode=$("shiftMode").value; if(!(o.shiftTime>=0)) o.shiftTime=0; if(!(o.wheelie>0)) o.wheelie=9;
   return o;
 }
 function torque(p,rpm){
@@ -365,6 +387,37 @@ function topSpeed(p,s){
   let vt=0,gt=-1;
   for(let v=1;v<80;v+=0.05){const b=bestAccel(p,s,v,0);if(b.a!==null&&b.a>0){vt=v;gt=b.g;}else if(v>15)break;}
   return {v:vt,g:gt,rpm:gt>=0?rpmAt(p,s,gt,vt):0};
+}
+/* full-throttle standing start with clutch slip, shift time and a wheelie/traction cap */
+function dragRun(p,s){
+  const lr=p.benchLaunch, vLock=vAt(p,s,0,lr), cap=p.wheelie*G;
+  let v=0,t=0,x=0,g=0,shiftLeft=0,dt=0.005,sample=0;
+  const trace=[[0,0]], shifts=[], hit={};
+  const mark=(key,cond)=>{if(hit[key]===undefined&&cond)hit[key]={t,v};};
+  while(t<40){
+    let a, coasting=false;
+    if(shiftLeft>0){a=-road(p,v,0)/meff(p,s,g,false);shiftLeft-=dt;coasting=true;if(shiftLeft<=0)g++;}
+    else if(g===0&&v<vLock){a=(thrust(p,s,0,lr)-road(p,v,0))/meff(p,s,0,false);}
+    else{
+      const rpm=rpmAt(p,s,g,v);
+      const aCur=accelGear(p,s,g,v,0);
+      let up=false;
+      if(g<5){
+        if(rpm>=p.redline-1||aCur===null) up=true;
+        else if(p.shiftMode==="optimal"){const aN=accelGear(p,s,g+1,v,0);if(aN!==null&&aN>=aCur)up=true;}
+      }
+      if(up){shifts.push({t,v,g,rpm});if(p.shiftTime>0){shiftLeft=p.shiftTime;continue;}g++;continue;}
+      a=aCur===null?0:aCur;
+    }
+    a=Math.min(a,cap);
+    if(a<=0.001&&!coasting&&v>5) break;
+    v+=a*dt;x+=v*dt;t+=dt;
+    mark("v30",v>=30*MPH);mark("v60",v>=60*MPH);mark("q",x>=402.336);mark("e",x>=201.168);
+    if(t-sample>=0.05){trace.push([t,v/MPH]);sample=t;}
+    if(hit.v60&&hit.q&&v>=85*MPH) break;
+  }
+  trace.push([t,v/MPH]);
+  return {trace,shifts:shifts.map(e=>({t:e.t,mph:e.v/MPH,g:e.g,rpm:e.rpm})),hit,vLock};
 }
 function launch(p,s,gradePct){
   const lr=p.launch, th=Math.atan(gradePct/100);
@@ -535,6 +588,30 @@ function render(){
     fy:y=>fmt(y,y<10?1:0),vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser3,fv:y=>`${fmt(y,2)} mph/s · ${fmt(y*MPH/G,3)} g`});
   $("lg3").innerHTML=on.map(s=>`<span><i style="border-color:${sc(s.i)}"></i>${esc(s.name)} ${nm(s)}</span>`).join("")+`<span><i style="border-color:var(--muted);border-top-style:dashed"></i>held in 6th</span>`;
 
+  /* chart 6: acceleration benchmark */
+  {
+    const runs={}; on.forEach(s=>runs[s.i]=dragRun(p,s));
+    const t60=on.map(s=>runs[s.i].hit.v60?runs[s.i].hit.v60.t:20);
+    const x1t=Math.max(6,Math.ceil(Math.max(...t60)*1.35/2)*2);
+    const ser6=[],marks6=[];
+    on.forEach(s=>{const r=runs[s.i],c=sc(s.i);
+      ser6.push({pts:r.trace.filter(q=>q[0]<=x1t+0.1),c,w:2.4,name:`${s.name}`});
+      r.shifts.forEach(e=>{if(e.t<=x1t)marks6.push({x:e.t,y:e.mph,c,hollow:true,r:3});});
+    });
+    chart($("c6"),{aria:"Speed versus time from a standing start",x0:0,x1:x1t,xs:x1t>16?2:1,y0:0,y1:80,ys:10,xl:"time (s)",yl:"speed (GPS mph)",xu:"s",
+      hl:[{y:30,c:col("--muted"),label:"30 mph",d:"2 3"},{y:60,c:col("--muted"),label:"60 mph",d:"2 3"}],series:ser6,marks:marks6,fv:y=>fmt(y,1)+" mph"});
+    $("lg6").innerHTML=on.map(s=>`<span><i style="border-color:${sc(s.i)}"></i>${esc(s.name)} ${nm(s)}</span>`).join("")+`<span><svg width="10" height="10" aria-hidden="true"><circle cx="5" cy="5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>upshift</span>`;
+    const T=(r,k)=>r.hit[k]?r.hit[k].t:null;
+    const b=runs[0]||dragRun(p,S.setups[0]);
+    let h6=`<thead><tr><th>Setup</th><th>0–30</th><th>0–60</th><th>vs A</th><th>30–60</th><th>⅛ mile</th><th>¼ mile</th><th>Shifts to 60</th></tr></thead><tbody>`;
+    on.forEach(s=>{const r=runs[s.i];const a30=T(r,"v30"),a60=T(r,"v60");
+      const n60=a60?r.shifts.filter(e=>e.t<a60).length:null;
+      const qm=r.hit.q?`${fmt(r.hit.q.t,1)} s <span style="color:var(--muted)">@ ${fmt(r.hit.q.v/MPH,0)}</span>`:"—";
+      const em=r.hit.e?`${fmt(r.hit.e.t,1)} s <span style="color:var(--muted)">@ ${fmt(r.hit.e.v/MPH,0)}</span>`:"—";
+      h6+=`<tr class="${s.i===0?"base":""}"><td><span class="tag" style="background:var(--s${s.i})"></span>${esc(s.name)} <span style="color:var(--muted)">${nm(s)}</span></td><td>${a30?fmt(a30,2)+" s":"—"}</td><td>${a60?fmt(a60,2)+" s":"—"}</td><td>${s.i===0||!a60||!T(b,"v60")?"—":pct(a60,T(b,"v60"),1,true)}</td><td>${a30&&a60?fmt(a60-a30,2)+" s":"—"}</td><td>${em}</td><td>${qm}</td><td>${n60===null?"—":n60}</td></tr>`;});
+    $("t6").innerHTML=h6+`</tbody><caption style="caption-side:bottom;text-align:left;font-size:12px;color:var(--muted);padding-top:8px">Times move with the torque curve, rider weight and launch skill; the gaps between setups are the useful part. Taller gearing loses some launch thrust but can save a shift before 60, so the 0–60 gap is often smaller than the torque gap.</caption>`;
+  }
+
   /* table 1: highway */
   const tops=S.setups.map(s=>topSpeed(p,s));
   const base=S.setups[0];
@@ -609,3 +686,5 @@ function init(){
 init();
 })();
 </script>
+</body>
+</html>
