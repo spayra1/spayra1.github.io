@@ -188,6 +188,17 @@ tr.base td{background:var(--soft)}
   </section>
 
   <section class="panel">
+    <h2>Shift pattern</h2>
+    <p class="sub">Riding through the gears with upshifts at the same rpm. Each vertical drop is an upshift; the dot at the bottom is where the engine lands in the next gear. Pulling away starts with the clutch slipping at your launch rpm. Focus setup solid, comparison dashed, same setups as the chart above.</p>
+    <div class="controls">
+      <div class="field"><label for="shiftRpm">Upshift at (rpm)</label><input type="number" id="shiftRpm" value="5000" step="100"></div>
+    </div>
+    <div class="chart" id="c5"></div>
+    <div class="legend" id="lg5"></div>
+    <div class="tablewrap" style="margin-top:12px"><table id="t5"></table></div>
+  </section>
+
+  <section class="panel">
     <h2>Rear-wheel torque by gear</h2>
     <p class="sub">Engine torque × overall ratio × drivetrain efficiency. The grey curve is what the road takes (wind, rolling resistance, and the highway grade) expressed as wheel torque. The gap between a gear's curve and the road curve is what's left to accelerate with.</p>
     <div class="chart" id="c2"></div>
@@ -239,6 +250,7 @@ tr.base td{background:var(--soft)}
   </section>
 </main>
 </div>
+<footer style="margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)">compiled by Syamantak Payra with Opus 5.5, November 2026</footer>
 
 <script>
 (function(){
@@ -254,7 +266,7 @@ const DEF = {
   tq:[[2500,17],[3000,18.5],[4000,21],[5000,23.5],[6000,25.5],[7000,27.5],[7500,28],[8000,27.8],[8500,27],[9000,26],[9500,25.1],[10000,23.5],[10500,21]],
   focus:0, compare:1
 };
-const SCALARS = ["cruise","loud","pass0","pass1","passGrade","rider","hillGrade","launch","speedo","primary","redline","tireW","tireA","rim","squat","bikeKg","eff","cda","crr","ie","iw"];
+const SCALARS = ["shiftRpm","cruise","loud","pass0","pass1","passGrade","rider","hillGrade","launch","speedo","primary","redline","tireW","tireA","rim","squat","bikeKg","eff","cda","crr","ie","iw"];
 const SCALAR_DEF = {};
 SCALARS.forEach(id=>SCALAR_DEF[id]=document.getElementById(id).value);
 const KEY="g310gs-sprocket-lab-v1";
@@ -406,6 +418,7 @@ function chart(el,cfg){
     s+=`<path d="${d}" fill="none" stroke="${se.c}" stroke-width="${se.w||2}" stroke-dasharray="${se.dash||""}" stroke-linejoin="round" stroke-linecap="round" opacity="${se.o||1}"/>`;
     if(se.end){const q=se.pts[se.pts.length-1];s+=`<circle cx="${X(q[0])}" cy="${Y(q[1])}" r="2.6" fill="${se.c}"/>`;}
   });
+  (cfg.marks||[]).forEach(q=>{s+=`<circle cx="${X(q.x)}" cy="${Y(q.y)}" r="${q.r||3.5}" fill="${q.hollow?col("--panel"):q.c}" stroke="${q.c}" stroke-width="1.8"/>`;});
   s+=`</g><line id="xh${el.id}" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" stroke="${ink}" stroke-width="1" opacity="0"/>`;
   s+=`<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" id="hit${el.id}"/></svg><div class="tip" hidden></div>`;
   el.innerHTML=s;
@@ -464,6 +477,34 @@ function render(){
     vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser1,fv:y=>fmt(y,0)+" rpm"});
   $("lg1").innerHTML=S.gears.map((g,i)=>`<span><i style="border-color:${gc(i)}"></i>${ord(i)}</span>`).join("")+
     `<span><i style="border-color:var(--muted)"></i>${esc(F.name)} ${nm(F)}</span>`+(ci!==fi?`<span><i style="border-color:var(--muted);border-top-style:dashed"></i>${esc(C.name)} ${nm(C)}</span>`:"");
+
+  /* chart 5: shift pattern sawtooth */
+  const sh=p.shiftRpm>0?p.shiftRpm:5000;
+  const ser5=[], marks5=[], shifts={};
+  [[fi,"",col("--s"+fi)],[ci,"6 4",col("--s"+ci)]].forEach(([si,dash,c],k)=>{
+    if(k===1&&ci===fi)return; const s=S.setups[si]; const D=v=>v/MPH*p.k; const list=[];
+    const pts=[[0,p.launch],[D(vAt(p,s,0,p.launch)),p.launch]];
+    for(let g=0;g<6;g++){
+      const vs=vAt(p,s,g,sh);
+      if(g<5){const after=rpmAt(p,s,g+1,vs);pts.push([D(vs),sh],[D(vs),after]);marks5.push({x:D(vs),y:sh,c,r:2.5},{x:D(vs),y:after,c,hollow:!!dash});list.push({g,v:D(vs),after,drop:sh-after});}
+      else pts.push([Math.min(x1,D(vAt(p,s,5,p.redline))),Math.min(p.redline,rpmAt(p,s,5,x1*MPH/p.k))]);
+    }
+    ser5.push({pts,c,dash,w:dash?2:2.6,name:`${"ABCD"[si]} ${s.name}`});
+    shifts[si]=list;
+  });
+  chart($("c5"),{aria:"Shift pattern sawtooth, rpm versus dash speed",x0:0,x1,xs:10,y0:0,y1:Math.ceil((p.redline+500)/1000)*1000,ys:1000,xl:"dash speed (mph)",yl:"engine rpm",xu:"mph",
+    fy:y=>y?fmt(y/1000,0)+"k":"0",band:[p.loud,p.redline,col("--loud")],
+    hl:[{y:sh,c:col("--muted"),label:"upshift "+fmt(sh,0),d:"2 3"},{y:p.loud,c:col("--accent"),label:"loud above "+fmt(p.loud,0),d:"4 3"}],
+    vl:[{x:p.cruise,label:fmt(p.cruise,0)+" mph"}],series:ser5,marks:marks5,fv:y=>fmt(y,0)+" rpm"});
+  $("lg5").innerHTML=`<span><i style="border-color:var(--s${fi})"></i>${esc(F.name)} ${nm(F)}</span>`+(ci!==fi?`<span><i style="border-color:var(--s${ci});border-top-style:dashed"></i>${esc(C.name)} ${nm(C)}</span>`:"");
+  {
+    const a=shifts[fi]||[], b=ci!==fi?(shifts[ci]||[]):null;
+    let h5=`<thead><tr><th>Upshift</th><th>${esc(F.name)} at</th><th>lands at</th>${b?`<th>${esc(C.name)} at</th><th>lands at</th><th>Speed gain</th>`:""}</tr></thead><tbody>`;
+    a.forEach((r,i)=>{const q=b&&b[i];
+      h5+=`<tr><td>${ord(r.g)} → ${ord(r.g+1)}</td><td>${fmt(r.v,1)} mph</td><td>${fmt(r.after,0)} rpm <span style="color:var(--muted)">−${fmt(r.drop,0)}</span></td>${q?`<td>${fmt(q.v,1)} mph</td><td>${fmt(q.after,0)} rpm <span style="color:var(--muted)">−${fmt(q.drop,0)}</span></td><td>+${fmt(q.v-r.v,1)} mph</td>`:""}</tr>`;});
+    const lug=a.length?Math.min(...a.map(r=>r.after)):0;
+    $("t5").innerHTML=h5+`</tbody><caption style="caption-side:bottom;text-align:left;font-size:12px;color:var(--muted);padding-top:8px">Landing rpm is the same for every sprocket choice, because it depends only on the gearbox steps. Sprockets change the road speed where each shift happens.${lug&&lug<3500?` The ${fmt(lug,0)} rpm landing after the 1–2 shift sits low on a single's torque curve; shifting a little later out of 1st keeps it pulling.`:""}</caption>`;
+  }
 
   /* chart 2: wheel torque vs speed */
   const ser2=[]; let ymax2=0;
